@@ -211,6 +211,9 @@ module.exports = Generator.extend({
       // Health endpoint
       this.healthcheck = (typeof this.spec.healthcheck === 'undefined') ? true : this.spec.healthcheck
 
+      // Standalone mode
+      this.isStandalone = (typeof this.spec.isStandalone === 'undefined') ? true : this.spec.isStandalone
+
       // Generation of example endpoints from the productSwagger.yaml example.
       if (this.spec.fromSwagger && typeof (this.spec.fromSwagger) === 'string') {
         this.openApiFileOrUrl = this.spec.fromSwagger
@@ -409,6 +412,7 @@ module.exports = Generator.extend({
     this.composeWith(require.resolve('generator-ibm-service-enablement'), {
       quiet: true,
       bluemix: JSON.stringify(this.bluemix),
+      isStandalone: this.isStandalone,
       parentContext: {
         injectIntoApplication: options => {
           if (options.capability) this.appInitCode.capabilities.push(options.capability)

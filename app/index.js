@@ -135,6 +135,7 @@ module.exports = Generator.extend({
         var usecase = isTrue(this.options.enableUsecase) || undefined
         var starterOptions = this.options.starterOptions || undefined
         var healthcheck = (typeof this.options.healthcheck === 'undefined') ? true : isTrue(this.options.healthcheck)
+        var isStandalone = (typeof this.options.isStandalone === 'undefined') ? true : isTrue(this.options.isStandalone)
 
         var web = (this.appType === 'web' || this.appType === 'bff' || undefined)
         var hostSwagger = (this.appType === 'bff' || undefined)
@@ -155,7 +156,8 @@ module.exports = Generator.extend({
           repoType: 'clone',
           healthcheck: healthcheck,
           usecase: usecase,
-          starterOptions: starterOptions
+          starterOptions: starterOptions,
+          isStandalone: isStandalone
         }
       } else if (this.options.init) {
         // User passed the --init flag, so no prompts, just generate basic default scaffold
